@@ -1,23 +1,19 @@
-name: Node.js CI
+name: Node Continuous Integration
 
-on: [push]
+on:
+  pull_request:
+    branches: [main]
 
 jobs:
-  build:
+  test_pull_request:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: "14"
-
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2-beta
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run build --if-present
-      - run: npm test
-        env:
-          CI: true
+          node-version: "12"
+      - name: NPM CI
+        working-directory: ./server
+        run: |
+          npm install
+          npm test
