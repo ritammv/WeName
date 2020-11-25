@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: "12"
-      - name: NPM CI
+      - name: NPM Continuous integration
         working-directory: ./server
         run: |
           npm install
